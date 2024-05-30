@@ -133,7 +133,7 @@ li:hover {
   	margin: 40px 0;
 }
 
-.btn {
+.filters button {
 	font-family: "Syne";
 	padding: 6px 25px;
 	margin: 0 15px;
@@ -147,7 +147,7 @@ li:hover {
 	transition: all 0.5s ease;
   }
 
-.btn-active {
+.filters button:focus {
 	color: white;
 	background-color: #1D6154;
   }

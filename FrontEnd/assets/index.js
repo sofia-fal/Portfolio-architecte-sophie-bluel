@@ -1,8 +1,9 @@
 const galleryGrid = document.querySelector(".gallery");
+const filterGrid = document.querySelector(".filters");
 
 async function getWorks() {
-    const response = await fetch("http://localhost:5678/api/works");
-    return await response.json();
+    const works = await fetch("http://localhost:5678/api/works");
+    return await works.json();
 }
 
 async function displayWorks() {
@@ -20,3 +21,23 @@ async function displayWorks() {
 }
 
 displayWorks();
+
+//* Categories *//
+
+async function getCategories() {
+    const categories = await fetch("http://localhost:5678/api/categories");
+    return await categories.json();
+}
+
+async function displayCategoriesBtn() {
+    const categories = await getCategories();
+
+    categories.forEach(category => {
+        const btn = document.createElement("button");
+        btn.textContent = category.name;
+        btn.id = category.id;
+        filterGrid.appendChild(btn);
+    });
+}
+
+displayCategoriesBtn();
