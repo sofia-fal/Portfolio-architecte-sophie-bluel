@@ -162,38 +162,64 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
-#contact {
+
+#contact, #login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
-	text-align: center;
 
+#contact, #login > * {
+	text-align: center;
 }
-#contact h2{
+
+#contact h2, #login h2 {
 	margin-bottom: 20px;
 }
-#contact form {
+
+#contact form, #login form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input:not([type="submit"]), #login input:not([type="submit"]), .modal input:not([type="submit"]), #selectCategory {
 	height: 50px;
-	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 10px;
+	box-sizing: border-box;
 }
-#contact label {
+
+#contact label, #login label {
 	margin: 2em 0 1em 0;
 }
+
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+#login a {
+	text-decoration: underline;
+	color: black;
+}
+
+#login input[type="submit"] {
+	padding: 10px;
+}
+
+#login {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em
 }
 
 input[type="submit"]{
