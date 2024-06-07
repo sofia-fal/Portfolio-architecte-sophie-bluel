@@ -27,12 +27,13 @@ form.addEventListener("submit", (e) => {
         password.style.background = "rgba(255, 0, 0, 0.39)";
         const errorLogin = document.querySelector("p");
         errorLogin.textContent =
-          "Le mot de passe ou l'identifiant est incorrect.";
-        throw new Error("Le mot de passe ou l'identifiant est incorrect.");
+          "Erreur dans l’identifiant ou le mot de passe.";
+        throw new Error("Erreur dans l’identifiant ou le mot de passe.");
       }
       return response.json();
     })
     .then((data) => {
+      window.sessionStorage.logged = "true";
       const userId = data.userId;
       const userToken = data.token;
       window.sessionStorage.setItem("token", userToken);

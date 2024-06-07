@@ -72,3 +72,40 @@ async function filterCategories() {
 }
 
 filterCategories();
+
+//* Admin *//
+
+const logged = window.sessionStorage.logged;
+const logout = document.querySelector("header nav .logout");
+
+if (logged == "true") {
+  //* Logged in *//
+  logout.textContent = "logout";
+  filterGrid.style = "display: none";
+
+  const headings = document.querySelector("#portfolio h2");
+
+  const icon = document.createElement("i");
+  icon.classList.add("fa-solid", "fa-file-pen");
+  icon.style.marginLeft = "25px";
+  icon.style.marginRight = "10px";
+  const iconWithText = document.createElement("span");
+  const modifyText = document.createTextNode("modifier");
+
+  iconWithText.appendChild(icon);
+  iconWithText.appendChild(modifyText);
+  
+  iconWithText.style.fontFamily = "Work Sans";
+  iconWithText.style.color = "black";
+  iconWithText.style.fontSize = "14px";
+
+  headings.appendChild(iconWithText);
+
+//* Logged out *//  
+  logout.addEventListener("click", () => {
+    window.sessionStorage.logged = "false";
+    window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("userId");
+    window.location.href = "login.html";
+  }); 
+}
