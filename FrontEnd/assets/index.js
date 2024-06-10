@@ -83,6 +83,10 @@ if (logged == "true") {
   logout.textContent = "logout";
   filterGrid.style = "display: none";
 
+  const adminBar = document.querySelector("#admin-bar");
+  adminBar.style = "display: flex;";
+
+
   const headings = document.querySelector("#portfolio h2");
 
   const icon = document.createElement("i");
