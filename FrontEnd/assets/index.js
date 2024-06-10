@@ -4,8 +4,14 @@ const filterGrid = document.querySelector(".filters");
 //* Get and display works *//
 
 async function getWorks() {
-  const works = await fetch("http://localhost:5678/api/works");
-  return await works.json();
+  try {
+    const response = await fetch("http://localhost:5678/api/works");
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
+  } catch (error) {
+    console.error('Fetching works failed:', error);
+    return [];
+  }
 }
 
 function createWorks(work) {
@@ -31,19 +37,31 @@ displayWorks();
 //* Categories *//
 
 async function getCategories() {
-  const categories = await fetch("http://localhost:5678/api/categories");
-  return await categories.json();
+  try {
+    const response = await fetch("http://localhost:5678/api/categories");
+    if (!response.ok) throw new Error('Network response was not ok');
+    return await response.json();
+  } catch (error) {
+    console.error('Fetching categories failed:', error);
+    return [];
+  }
 }
 
 async function displayCategoriesBtn() {
   const categories = await getCategories();
-
   categories.forEach((category) => {
     const btn = document.createElement("button");
     btn.textContent = category.name;
     btn.id = category.id;
     filterGrid.appendChild(btn);
   });
+
+  const allBtn = document.createElement("button");
+  allBtn.textContent = "Tous";
+  allBtn.id = "0";
+  filterGrid.insertBefore(allBtn, filterGrid.firstChild);
+
+  filterCategories();
 }
 
 displayCategoriesBtn();
@@ -55,7 +73,7 @@ async function filterCategories() {
   const buttons = document.querySelectorAll(".filters button");
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      btnId = e.target.id;
+      const btnId = e.target.id;
       galleryGrid.innerHTML = "";
       if (btnId !== "0") {
         const filtering = allFilters.filter((works) => {
@@ -71,21 +89,19 @@ async function filterCategories() {
   });
 }
 
-filterCategories();
-
 //* Admin *//
 
 const logged = window.sessionStorage.logged;
 const logout = document.querySelector("header nav .logout");
-const modalContainter = document.querySelector(".modal-container");
+const modalContainer = document.querySelector(".modal-container");
 
 if (logged == "true") {
   //* Logged in *//
   logout.textContent = "logout";
-  filterGrid.style = "display: none";
+  filterGrid.style.display = "none";
 
   const adminBar = document.querySelector("#admin-bar");
-  adminBar.style = "display: flex;";
+  adminBar.style.display = "flex";
 
   const headings = document.querySelector("#portfolio h2");
 
@@ -108,28 +124,27 @@ if (logged == "true") {
 
   //* Modal display *//
 
-  const modalContainter = document.querySelector(".modal-container");
   const close = document.querySelector(".modal-container .fa-xmark");
 
   iconWithText.addEventListener("click", () => {
-    modalContainter.style.display = "flex";
-});
+    modalContainer.style.display = "flex";
+  });
 
-close.addEventListener("click", () => {
-  modalContainter.style.display = "none";
-});
+  close.addEventListener("click", () => {
+    modalContainer.style.display = "none";
+  });
 
-modalContainter.addEventListener("click", (e) => {
-  if (e.target.className == "modal-container") {
-    modalContainter.style.display = "none";
-  }
-});
+  modalContainer.addEventListener("click", (e) => {
+    if (e.target.className == "modal-container") {
+      modalContainer.style.display = "none";
+    }
+  });
 
-//* Logged out *//  
+  //* Logged out *//  
   logout.addEventListener("click", () => {
     window.sessionStorage.logged = "false";
     window.sessionStorage.removeItem("token");
     window.sessionStorage.removeItem("userId");
     window.location.href = "login.html";
-  }); 
+  });
 }

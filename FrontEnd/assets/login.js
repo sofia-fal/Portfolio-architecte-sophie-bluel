@@ -15,7 +15,6 @@ form.addEventListener("submit", (e) => {
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     mode: "cors",
-    credentials: "same-origin",
     headers: { "Content-Type": "application/json" },
     body: user,
   })
@@ -25,19 +24,30 @@ form.addEventListener("submit", (e) => {
         password.style.border = "2px solid #FF0000";
         email.style.background = "rgba(255, 0, 0, 0.39)";
         password.style.background = "rgba(255, 0, 0, 0.39)";
-        const errorLogin = document.querySelector("p");
-        errorLogin.textContent =
-          "Erreur dans l’identifiant ou le mot de passe.";
+        
+        let errorLogin = document.querySelector(".error-message");
+        if (!errorLogin) {
+          errorLogin = document.createElement("p");
+          errorLogin.className = "error-message";
+          errorLogin.style.color = "#FF0000";
+          errorLogin.style = "text-align: center;";
+          form.appendChild(errorLogin);
+        }
+        errorLogin.textContent = "Erreur dans l’identifiant ou le mot de passe.";
+        
         throw new Error("Erreur dans l’identifiant ou le mot de passe.");
       }
       return response.json();
     })
     .then((data) => {
-      window.sessionStorage.logged = "true";
-      const userId = data.userId;
-      const userToken = data.token;
-      window.sessionStorage.setItem("token", userToken);
-      window.sessionStorage.setItem("userId", userId);
+      email.style.border = "";
+      password.style.border = "";
+      email.style.background = "";
+      password.style.background = "";
+
+      window.sessionStorage.setItem("logged", "true");
+      window.sessionStorage.setItem("token", data.token);
+      window.sessionStorage.setItem("userId", data.userId);
       window.location.href = "index.html";
     })
     .catch((error) => {
