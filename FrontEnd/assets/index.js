@@ -77,6 +77,7 @@ filterCategories();
 
 const logged = window.sessionStorage.logged;
 const logout = document.querySelector("header nav .logout");
+const modalContainter = document.querySelector(".modal-container");
 
 if (logged == "true") {
   //* Logged in *//
@@ -85,7 +86,6 @@ if (logged == "true") {
 
   const adminBar = document.querySelector("#admin-bar");
   adminBar.style = "display: flex;";
-
 
   const headings = document.querySelector("#portfolio h2");
 
@@ -102,8 +102,28 @@ if (logged == "true") {
   iconWithText.style.fontFamily = "Work Sans";
   iconWithText.style.color = "black";
   iconWithText.style.fontSize = "14px";
+  iconWithText.style.cursor = "pointer";
 
   headings.appendChild(iconWithText);
+
+  //* Modal display *//
+
+  const modalContainter = document.querySelector(".modal-container");
+  const close = document.querySelector(".modal-container .fa-xmark");
+
+  iconWithText.addEventListener("click", () => {
+    modalContainter.style.display = "flex";
+});
+
+close.addEventListener("click", () => {
+  modalContainter.style.display = "none";
+});
+
+modalContainter.addEventListener("click", (e) => {
+  if (e.target.className == "modal-container") {
+    modalContainter.style.display = "none";
+  }
+});
 
 //* Logged out *//  
   logout.addEventListener("click", () => {
