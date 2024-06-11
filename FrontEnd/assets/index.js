@@ -106,7 +106,7 @@ if (logged == "true") {
   const headings = document.querySelector("#portfolio h2");
 
   const icon = document.createElement("i");
-  icon.classList.add("fa-solid", "fa-file-pen");
+  icon.classList.add("fa-regular", "fa-pen-to-square");
   icon.style.marginLeft = "25px";
   icon.style.marginRight = "10px";
   const iconWithText = document.createElement("span");
