@@ -140,6 +140,29 @@ if (logged == "true") {
     }
   });
 
+  //* Display works in modal *//
+  const galleryModal = document.querySelector(".gallery-figure");
+
+  async function displayGalleryModal() {
+    galleryModal.innerHTML = ""
+    const gallery = await getWorks()
+    gallery.forEach(work => {
+      const figure = document.createElement("figure")
+      const img = document.createElement("img")
+      const span = document.createElement("span")
+      const trash = document.createElement("i")
+      trash.classList.add("fa-solid", "fa-trash-can")
+      trash.id = work.id
+      img.src = work.imageUrl
+      span.appendChild(trash)
+      figure.appendChild(span)
+      figure.appendChild(img)
+      galleryModal.appendChild(figure)
+    });
+  }
+
+  displayGalleryModal();
+
   //* Logged out *//  
   logout.addEventListener("click", () => {
     window.sessionStorage.logged = "false";

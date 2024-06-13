@@ -280,13 +280,18 @@ footer nav ul {
 .modal {
 	background-color: white;
 	width: 600px;
-	height: 600px;
+	height: auto;
 	border-radius: 5px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: space-around;
+	padding: 20px;
 	position: relative;
+}
+
+.modal h3 {
+	font-size: 25px;
+    margin: 20px;
 }
 
 .fa-xmark {
@@ -299,7 +304,7 @@ footer nav ul {
 .modal button {
 	font-family: "Syne";
 	padding: 6px 25px;
-	margin: 0 15px;
+	margin: 30px 0;
 	border: 1px solid #1D6154;
 	border-radius: 25px;
 	color: white;
@@ -314,4 +319,56 @@ footer nav ul {
 	background-color: white;
 	color: #1D6154;
 	font-size: 14px;
+}
+
+.gallery-figure {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 20px;
+    column-gap: 10px;
+    width: 400px;
+    margin: 20px;
+    position: relative;
+}
+
+.gallery-figure::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(184, 184, 184);
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+}
+
+.gallery-figure figure {
+	height: 100px;
+	position: relative;
+	margin: 0;
+}
+
+.gallery-figure img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.gallery-figure span {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: black;
+	height: 18px;
+	width: 18px;
+	border-radius: 2px;
+}
+
+.gallery-figure .fa-trash-can {
+	color: white;
+	font-size: 0.6rem;
+	cursor: pointer;
 }
