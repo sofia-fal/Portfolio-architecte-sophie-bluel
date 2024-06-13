@@ -1,7 +1,7 @@
 const galleryGrid = document.querySelector(".gallery");
 const filterGrid = document.querySelector(".filters");
 
-//* Get and display works *//
+// Get and display works
 
 async function getWorks() {
   try {
@@ -34,7 +34,7 @@ async function displayWorks() {
 
 displayWorks();
 
-//* Categories *//
+// Categories
 
 async function getCategories() {
   try {
@@ -66,7 +66,7 @@ async function displayCategoriesBtn() {
 
 displayCategoriesBtn();
 
-//* Category filters *//
+// Category filters
 
 async function filterCategories() {
   const allFilters = await getWorks();
@@ -89,14 +89,14 @@ async function filterCategories() {
   });
 }
 
-//* Admin *//
+// Admin
 
 const logged = window.sessionStorage.logged;
 const logout = document.querySelector("header nav .logout");
 const modalContainer = document.querySelector(".modal-container");
 
 if (logged == "true") {
-  //* Logged in *//
+  // Logged in
   logout.textContent = "logout";
   filterGrid.style.display = "none";
 
@@ -122,8 +122,7 @@ if (logged == "true") {
 
   headings.appendChild(iconWithText);
 
-  //* Modal display *//
-
+  // Modal display
   const close = document.querySelector(".modal-container .fa-xmark");
 
   iconWithText.addEventListener("click", () => {
@@ -140,7 +139,7 @@ if (logged == "true") {
     }
   });
 
-  //* Display works in modal *//
+  // Display works in modal
   const galleryModal = document.querySelector(".gallery-figure");
 
   async function displayGalleryModal() {
@@ -163,7 +162,7 @@ if (logged == "true") {
 
   displayGalleryModal();
 
-  //* Logged out *//  
+  // Logged out
   logout.addEventListener("click", () => {
     window.sessionStorage.logged = "false";
     window.sessionStorage.removeItem("token");
