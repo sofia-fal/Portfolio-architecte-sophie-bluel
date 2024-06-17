@@ -26,6 +26,7 @@ function createWorks(work) {
 }
 
 async function displayWorks() {
+  galleryGrid.innerHTML = "";
   const arrayWorks = await getWorks();
   arrayWorks.forEach((work) => {
     createWorks(work);

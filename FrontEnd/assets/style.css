@@ -199,7 +199,7 @@ li:hover {
 	flex-direction: column;
 }
 
-#contact input:not([type="submit"]), #login input:not([type="submit"]), .modal input:not([type="submit"]), #selectCategory {
+#contact input:not([type="submit"]), #login input:not([type="submit"]), .add-works-modal #title, #category {
 	height: 50px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
@@ -266,7 +266,7 @@ footer nav ul {
 /* Modal */
 
 .modal-container {
-	display: none;
+	/* display: none; */
 	justify-content: center;
 	align-items: center;
 	position: fixed;
@@ -277,7 +277,8 @@ footer nav ul {
 	background: rgba(0, 0, 0, 0.4);
 }
 
-.modal {
+.modal,
+.add-works-modal {
 	background-color: white;
 	width: 600px;
 	height: auto;
@@ -289,7 +290,8 @@ footer nav ul {
 	position: relative;
 }
 
-.modal h3 {
+.modal h3,
+.add-works-modal h3 {
 	font-size: 25px;
     margin: 20px;
 }
@@ -299,6 +301,94 @@ footer nav ul {
 	top: 20px;
 	right: 20px;
 	cursor: pointer;
+}
+
+.fa-arrow-left {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	cursor: pointer;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 80%;
+	width: 80%;
+	gap: 10px;
+}
+
+.file-content {
+	background-color: #e8f1f6;
+	height: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 5px;
+	padding: 20px;
+	gap: 10px;
+}
+
+.file-content::after {
+    content: '';
+    display: block;
+    width: 400px;
+    height: 1px;
+    background-color: rgb(184, 184, 184);
+    position: absolute;
+    bottom: 105px;
+    left: 20%;
+}
+
+.file-content label {
+	background-color: #cbd6dc;
+	color: #306685;
+	border-radius: 15px;
+	padding: 8px 25px;
+	cursor: pointer;
+	font-size: 1rem;
+}
+
+.file-content input {
+	display: none;
+}
+
+.fa-image {
+	font-size: 4rem;
+	color: #b9c5cc;
+}
+
+.file-content img {
+	display: none;
+	max-width: 100%;
+	height: 100%;
+}
+
+.file-content p {
+	color: #58595a;
+}
+
+.add-works-modal button {
+	font-family: "Syne";
+	padding: 6px 25px;
+	margin: 30px 0;
+	border: 1px solid #a7a7a7;
+	border-radius: 25px;
+	color: white;
+	background-color: #a7a7a7;
+	font-size: 16px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.5s ease;
+	width: 200px;
+    align-self: center;
+}
+
+.add-works-modal button:focus {
+	background-color: white;
+	color: #1D6154;
+	font-size: 14px;
 }
 
 .modal button {
@@ -315,7 +405,7 @@ footer nav ul {
 	transition: all 0.5s ease;
 }
 
-.modal button:active {
+.modal button:focus {
 	background-color: white;
 	color: #1D6154;
 	font-size: 14px;
