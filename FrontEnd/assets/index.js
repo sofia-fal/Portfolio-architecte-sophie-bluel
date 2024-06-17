@@ -158,9 +158,47 @@ if (logged == "true") {
       figure.appendChild(img)
       galleryModal.appendChild(figure)
     });
+    deleteWorks();
   }
 
   displayGalleryModal();
+
+  // Delete works
+const token = window.sessionStorage.getItem("token");
+
+function deleteWorks() {
+  const trashcans = document.querySelectorAll(".fa-trash-can");
+  trashcans.forEach(trash => {
+    trash.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = trash.id;
+      const deleteId = {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "same-origin",
+      };
+      fetch("http://localhost:5678/api/works/" + id, deleteId)
+        .then((response) => {
+          if (!response.ok) {
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          displayGalleryModal();
+          displayWorks();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  });
+}
 
   // Logged out
   logout.addEventListener("click", () => {
