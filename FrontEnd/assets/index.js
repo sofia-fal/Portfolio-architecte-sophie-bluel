@@ -280,6 +280,25 @@ displayAddModal();
     }
   });
 
+  // Category list select
+  async function displayCategoryModal() {
+    const select = document.querySelector(".add-works-modal select");
+    const categories = await getCategories();
+    categories.forEach(category => {
+      const option = document.createElement("option");
+      option.value = category.id;
+      option.textContent = category.name;
+      select.appendChild(option);
+    });
+  }
+  
+  displayCategoryModal();
+
+  // POST
+  const form = document.querySelector(".add-works-modal form");  
+  const title = document.querySelector(".add-works-modal #title");  
+  const category = document.querySelector(".add-works-modal #category");
+
 
   // Logged out
   logout.addEventListener("click", () => {
