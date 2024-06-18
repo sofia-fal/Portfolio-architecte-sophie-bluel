@@ -257,6 +257,30 @@ function displayAddModal() {
 
 displayAddModal();
 
+  // Image preview
+  const previewImg = document.querySelector(".file-content img");
+  const inputFile = document.querySelector(".file-content input");
+  const labelFile = document.querySelector(".file-content label");
+  const iconFile = document.querySelector(".file-content .fa-image");
+  const paragraphFile = document.querySelector(".file-content p");
+
+  // Input file
+  inputFile.addEventListener("change", ()=> {
+    const file = inputFile.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImg.src = e.target.result;
+        previewImg.style.display = "flex";
+        labelFile.style.display = "none";
+        iconFile.style.display = "none";
+        paragraphFile.style.display = "none";
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+
+
   // Logged out
   logout.addEventListener("click", () => {
     window.sessionStorage.logged = "false";
