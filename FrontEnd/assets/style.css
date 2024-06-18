@@ -266,7 +266,7 @@ footer nav ul {
 /* Modal */
 
 .modal-container {
-	/* display: none; */
+	 display: none;
 	justify-content: center;
 	align-items: center;
 	position: fixed;

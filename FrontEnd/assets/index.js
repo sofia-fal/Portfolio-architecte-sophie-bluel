@@ -159,15 +159,14 @@ if (logged == "true") {
       figure.appendChild(img)
       galleryModal.appendChild(figure)
     });
-    deleteWorks();
+    attachDeleteListeners();
   }
 
   displayGalleryModal();
 
   // Delete works
-const token = window.sessionStorage.getItem("token");
 
-function deleteWorks() {
+/* function deleteWorks() {
   const trashcans = document.querySelectorAll(".fa-trash-can");
   trashcans.forEach(trash => {
     trash.addEventListener("click", (e) => {
@@ -185,7 +184,7 @@ function deleteWorks() {
       fetch("http://localhost:5678/api/works/" + id, deleteId)
         .then((response) => {
           if (!response.ok) {
-            return;
+            console.log("Error");
           }
           return response.json();
         })
@@ -199,7 +198,40 @@ function deleteWorks() {
         });
     });
   });
-}
+} */
+
+  function attachDeleteListeners() {
+    const trashcans = document.querySelectorAll(".fa-trash-can");
+    const token = window.sessionStorage.getItem("token");
+  
+    trashcans.forEach(trash => {
+      trash.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = trash.id;
+        deleteWork(id, token);
+      });
+    });
+  }
+  
+  async function deleteWork(id, token) {
+    try {
+      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "same-origin",
+      });
+      if (!response.ok) throw new Error('Failed to delete the work');
+      await response.json();
+      displayGalleryModal();
+      displayWorks();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   // Logged out
   logout.addEventListener("click", () => {
