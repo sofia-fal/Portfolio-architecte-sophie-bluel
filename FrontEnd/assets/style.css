@@ -266,7 +266,7 @@ footer nav ul {
 /* Modal */
 
 .modal-container {
-	 display: none;
+	display: none;
 	justify-content: center;
 	align-items: center;
 	position: fixed;
@@ -277,13 +277,24 @@ footer nav ul {
 	background: rgba(0, 0, 0, 0.4);
 }
 
-.modal,
-.add-works-modal {
+.modal {
 	background-color: white;
 	width: 600px;
 	height: auto;
 	border-radius: 5px;
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	position: relative;
+}
+
+.add-works-modal {
+	background-color: white;
+	width: 600px;
+	height: auto;
+	border-radius: 5px;
+	display: none;
 	flex-direction: column;
 	align-items: center;
 	padding: 20px;

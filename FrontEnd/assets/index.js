@@ -161,12 +161,12 @@ if (logged == "true") {
     });
     attachDeleteListeners();
   }
-
+  
   displayGalleryModal();
 
   // Delete works
-
-/* function deleteWorks() {
+/*
+function deleteWorks() {
   const trashcans = document.querySelectorAll(".fa-trash-can");
   trashcans.forEach(trash => {
     trash.addEventListener("click", (e) => {
@@ -198,40 +198,64 @@ if (logged == "true") {
         });
     });
   });
-} */
+}
+*/
 
-  function attachDeleteListeners() {
-    const trashcans = document.querySelectorAll(".fa-trash-can");
-    const token = window.sessionStorage.getItem("token");
-  
-    trashcans.forEach(trash => {
-      trash.addEventListener("click", (e) => {
-        e.preventDefault();
-        const id = trash.id;
-        deleteWork(id, token);
-      });
-    });
+function attachDeleteListeners() {
+   const trashcans = document.querySelectorAll(".fa-trash-can");
+   const token = window.sessionStorage.getItem("token");
+ 
+   trashcans.forEach(trash => {
+     trash.addEventListener("click", (e) => {
+       e.preventDefault();
+       const id = trash.id;
+       deleteWork(id, token);
+     });
+   });
   }
   
-  async function deleteWork(id, token) {
-    try {
-      const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "same-origin",
-      });
-      if (!response.ok) throw new Error('Failed to delete the work');
-      await response.json();
-      displayGalleryModal();
-      displayWorks();
-    } catch (error) {
-      console.error(error);
-    }
-  }
+async function deleteWork(id, token) {
+   try {
+     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+       method: "DELETE",
+       headers: {
+         Authorization: `Bearer ${token}`,
+         "Content-Type": "application/json",
+       },
+       mode: "cors",
+       credentials: "same-origin",
+     });
+     if (!response.ok) throw new Error('Failed to delete the work');
+     await response.json();
+     displayGalleryModal();
+     displayWorks();
+   } catch (error) {
+     console.error(error);
+   }
+ }
+
+  // Add works
+const btnAdd = document.querySelector(".modal button");
+const modalAddWorks = document.querySelector(".add-works-modal");
+const modalDeleteWorks = document.querySelector(".modal");
+const arrowBack = document.querySelector(".fa-arrow-left");
+const closeAddModal = document.querySelector(".add-works-modal .fa-xmark");
+
+function displayAddModal() {
+  btnAdd.addEventListener("click", () => {
+    modalAddWorks.style.display = "flex";
+    modalDeleteWorks.style.display = "none";
+  });
+  arrowBack.addEventListener("click", () => {
+    modalAddWorks.style.display = "none";
+    modalDeleteWorks.style.display = "flex";
+  });
+  closeAddModal.addEventListener("click", () => {
+    modalContainer.style.display = "none";
+  });
+}
+
+displayAddModal();
 
   // Logged out
   logout.addEventListener("click", () => {
