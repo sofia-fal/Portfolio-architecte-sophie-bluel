@@ -411,6 +411,12 @@ footer nav ul {
 	color: #1D6154;
 	font-size: 14px;
 }
+.add-works-modal .error-message {
+	color: red;
+    position: absolute;
+    bottom: 2%;
+    left: 23%;
+}
 
 .modal button {
 	font-family: "Syne";

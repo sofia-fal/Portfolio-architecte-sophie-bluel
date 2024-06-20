@@ -247,22 +247,24 @@ displayAddModal();
   const title = document.querySelector(".add-works-modal #title");  
   const category = document.querySelector(".add-works-modal #category");
   const validateButton = document.querySelector(".add-works-modal button");
+  const errorMessage = document.querySelector(".error-message");
 
-  function checkFields() {
-    const isFileSelected = inputFile.files.length > 0;
-    const isTitleFilled = title.value.trim() !== "";
-    const isCategorySelected = category.value !== "";
+function checkFields() {
+  const isFileSelected = inputFile.files.length > 0;
+  const isTitleFilled = title.value.trim() !== "";
+  const isCategorySelected = category.value !== "";
   
-    const allFieldsValid = isFileSelected && isTitleFilled && isCategorySelected;
+  const allFieldsValid = isFileSelected && isTitleFilled && isCategorySelected;
+
+  validateButton.disabled = !allFieldsValid;
   
-    validateButton.disabled = !allFieldsValid;
-    
-    if (allFieldsValid) {
-      validateButton.style.backgroundColor = '#1D6154';
-    } else {
-      validateButton.style.backgroundColor = '';
-    }
+  if (allFieldsValid) {
+    validateButton.style.backgroundColor = '#1D6154';
+    errorMessage.style.display = "none";
+  } else {
+    validateButton.style.backgroundColor = '';
   }
+}
 
 [inputFile, title, category].forEach(element => {
   element.addEventListener("change", checkFields);
@@ -270,6 +272,13 @@ displayAddModal();
 });
 
 checkFields();
+
+validateButton.addEventListener("click", (e) => {
+  if (validateButton.disabled) {
+    e.preventDefault();
+    errorMessage.style.display = "block";
+  }
+});
 
   // Input file
   inputFile.addEventListener("change", () => {
