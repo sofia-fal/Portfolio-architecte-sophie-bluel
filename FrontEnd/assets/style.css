@@ -113,6 +113,15 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+nav li a {
+	color: black;
+}
+
+nav li a:hover {
+	color: #B1663C;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -251,6 +260,7 @@ input[type="submit"]{
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
+	border: 1px solid #1D6154;
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;

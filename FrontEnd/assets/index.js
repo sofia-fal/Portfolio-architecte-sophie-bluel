@@ -340,7 +340,13 @@ checkFields();
         form.reset();
         modalDeleteWorks.style.display = "flex";
         modalAddWorks.style.display = "none";
+
+        inputFile.value = "";
+        previewImg.src = "";
         previewImg.style.display = "none";
+        labelFile.style.display = "block";
+        iconFile.style.display = "block";
+        paragraphFile.style.display = "block";
       } catch (error) {
         console.error("Erreur:", error);
       }
