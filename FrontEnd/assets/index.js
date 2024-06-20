@@ -165,42 +165,6 @@ if (logged == "true") {
   displayGalleryModal();
 
   // Delete works
-/*
-function deleteWorks() {
-  const trashcans = document.querySelectorAll(".fa-trash-can");
-  trashcans.forEach(trash => {
-    trash.addEventListener("click", (e) => {
-      e.preventDefault();
-      const id = trash.id;
-      const deleteId = {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "same-origin",
-      };
-      fetch("http://localhost:5678/api/works/" + id, deleteId)
-        .then((response) => {
-          if (!response.ok) {
-            console.log("Error");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-          displayGalleryModal();
-          displayWorks();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    });
-  });
-}
-*/
-
 function attachDeleteListeners() {
    const trashcans = document.querySelectorAll(".fa-trash-can");
    const token = window.sessionStorage.getItem("token");
@@ -226,7 +190,7 @@ async function deleteWork(id, token) {
        credentials: "same-origin",
      });
      if (!response.ok) throw new Error('Failed to delete the work');
-     await response.json();
+
      displayGalleryModal();
      displayWorks();
    } catch (error) {
@@ -264,22 +228,6 @@ displayAddModal();
   const iconFile = document.querySelector(".file-content .fa-image");
   const paragraphFile = document.querySelector(".file-content p");
 
-  // Input file
-  inputFile.addEventListener("change", ()=> {
-    const file = inputFile.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImg.src = e.target.result;
-        previewImg.style.display = "flex";
-        labelFile.style.display = "none";
-        iconFile.style.display = "none";
-        paragraphFile.style.display = "none";
-      }
-      reader.readAsDataURL(file);
-    }
-  });
-
   // Category list select
   async function displayCategoryModal() {
     const select = document.querySelector(".add-works-modal select");
@@ -294,13 +242,12 @@ displayAddModal();
   
   displayCategoryModal();
 
-  // POST
+   // Check field validity
   const form = document.querySelector(".add-works-modal form");  
   const title = document.querySelector(".add-works-modal #title");  
   const category = document.querySelector(".add-works-modal #category");
   const validateButton = document.querySelector(".add-works-modal button");
 
-  // Check field validity
   function checkFields() {
     const isFileSelected = inputFile.files.length > 0;
     const isTitleFilled = title.value.trim() !== "";
@@ -323,6 +270,48 @@ displayAddModal();
 });
 
 checkFields();
+
+  // Input file
+  inputFile.addEventListener("change", () => {
+    const file = inputFile.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const imageSrc = e.target.result;
+        previewImg.src = imageSrc;
+        previewImg.style.display = "flex";
+        labelFile.style.display = "none";
+        iconFile.style.display = "none";
+        paragraphFile.style.display = "none";
+        checkFields();
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  title.addEventListener("input", () => {
+    checkFields();
+  });
+
+  async function loadSavedData() {
+    const works = await getWorks();
+    if (works.length > 0) {
+      const lastWork = works[works.length - 1];
+      if (lastWork.imageUrl) {
+        previewImg.src = lastWork.imageUrl;
+        previewImg.style.display = "flex";
+        labelFile.style.display = "none";
+        iconFile.style.display = "none";
+        paragraphFile.style.display = "none";
+      }
+      if (lastWork.title) {
+        title.value = lastWork.title;
+        title.dataset.loaded = true;
+      }
+    }
+    checkFields();
+  }
+    loadSavedData();
 
   async function addWorks() {
     form.addEventListener("submit", async (e) => {
