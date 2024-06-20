@@ -299,6 +299,40 @@ displayAddModal();
   const title = document.querySelector(".add-works-modal #title");  
   const category = document.querySelector(".add-works-modal #category");
 
+  async function addWorks() {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const token = window.sessionStorage.getItem("token");
+      const formData = new FormData(form);
+  
+      try {
+        const response = await fetch(`http://localhost:5678/api/works`, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error("Failed to upload work");
+        }
+  
+        const data = await response.json();
+        console.log("Successfully uploaded work:", data);
+        displayGalleryModal();
+        displayWorks();
+        form.reset();
+        modalDeleteWorks.style.display = "flex";
+        modalAddWorks.style.display = "none";
+        previewImg.style.display = "none";
+      } catch (error) {
+        console.error("Erreur:", error);
+      }
+    });
+  }
+  
+  addWorks();
 
   // Logged out
   logout.addEventListener("click", () => {
