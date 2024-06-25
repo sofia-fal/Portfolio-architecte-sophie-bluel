@@ -128,15 +128,18 @@ if (logged == "true") {
 
   iconWithText.addEventListener("click", () => {
     modalContainer.style.display = "flex";
+    removePreviewImage();
   });
 
   close.addEventListener("click", () => {
     modalContainer.style.display = "none";
+    removePreviewImage();
   });
 
   modalContainer.addEventListener("click", (e) => {
     if (e.target.className == "modal-container") {
       modalContainer.style.display = "none";
+      removePreviewImage();
     }
   });
 
@@ -209,13 +212,16 @@ function displayAddModal() {
   btnAdd.addEventListener("click", () => {
     modalAddWorks.style.display = "flex";
     modalDeleteWorks.style.display = "none";
+    removePreviewImage();
   });
   arrowBack.addEventListener("click", () => {
     modalAddWorks.style.display = "none";
     modalDeleteWorks.style.display = "flex";
+    removePreviewImage();
   });
   closeAddModal.addEventListener("click", () => {
     modalContainer.style.display = "none";
+    removePreviewImage();
   });
 }
 
@@ -322,6 +328,16 @@ validateButton.addEventListener("click", (e) => {
   }
     loadSavedData();
 
+    // Clear form
+    function removePreviewImage() {
+      inputFile.value = "";
+      previewImg.src = "";
+      previewImg.style.display = "none";
+      labelFile.style.display = "block";
+      iconFile.style.display = "block";
+      paragraphFile.style.display = "block";
+    }
+           
     // Add works
   async function addWorks() {
     form.addEventListener("submit", async (e) => {
@@ -347,15 +363,9 @@ validateButton.addEventListener("click", (e) => {
         displayGalleryModal();
         displayWorks();
         form.reset();
+        removePreviewImage();
         modalDeleteWorks.style.display = "flex";
         modalAddWorks.style.display = "none";
-
-        inputFile.value = "";
-        previewImg.src = "";
-        previewImg.style.display = "none";
-        labelFile.style.display = "block";
-        iconFile.style.display = "block";
-        paragraphFile.style.display = "block";
       } catch (error) {
         console.error("Erreur:", error);
       }
