@@ -212,15 +212,21 @@ function displayAddModal() {
   btnAdd.addEventListener("click", () => {
     modalAddWorks.style.display = "flex";
     modalDeleteWorks.style.display = "none";
+    title.value = "";
+    category.value = "";
     removePreviewImage();
   });
   arrowBack.addEventListener("click", () => {
     modalAddWorks.style.display = "none";
     modalDeleteWorks.style.display = "flex";
+    title.value = "";
+    category.value = "";
     removePreviewImage();
   });
   closeAddModal.addEventListener("click", () => {
     modalContainer.style.display = "none";
+    title.value = "";
+    category.value = "";
     removePreviewImage();
   });
 }
@@ -257,7 +263,11 @@ displayAddModal();
 
 function checkFields() {
   const isFileSelected = inputFile.files.length > 0;
-  const isTitleFilled = title.value.trim() !== "";
+  
+  const titleRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/;
+  const isTitleValid = titleRegex.test(title.value.trim());
+  
+  const isTitleFilled = title.value.trim() !== "" && isTitleValid;
   const isCategorySelected = category.value !== "";
   
   const allFieldsValid = isFileSelected && isTitleFilled && isCategorySelected;
@@ -364,8 +374,6 @@ validateButton.addEventListener("click", (e) => {
         displayWorks();
         form.reset();
         removePreviewImage();
-        modalDeleteWorks.style.display = "flex";
-        modalAddWorks.style.display = "none";
       } catch (error) {
         console.error("Erreur:", error);
       }
