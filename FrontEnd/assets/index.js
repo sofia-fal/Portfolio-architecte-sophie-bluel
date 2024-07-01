@@ -280,7 +280,7 @@ displayAddModal();
 function checkFields() {
   const isFileSelected = inputFile.files.length > 0; // Vérifie si un fichier est sélectionné
   
-  const titleRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]{3,}$/; // Regex pour valider le titre
+  const titleRegex = /^.{3,}$/; // Regex pour valider le titre
   const isTitleValid = titleRegex.test(title.value.trim()); // Vérifie si le titre est valide
   
   const isTitleFilled = title.value.trim() !== "" && isTitleValid; // Vérifie si le titre est rempli et valide
