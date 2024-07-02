@@ -141,18 +141,18 @@ if (logged == "true") {
 
   iconWithText.addEventListener("click", () => {
     modalContainer.style.display = "flex";
-    removePreviewImage(); // Réinitialisation du formulaire
+    resetForm(); // Réinitialisation du formulaire
   });
 
   close.addEventListener("click", () => {
     modalContainer.style.display = "none";
-    removePreviewImage();
+    resetForm();
   });
 
   modalContainer.addEventListener("click", (e) => {
     if (e.target.className == "modal-container") {
       modalContainer.style.display = "none";
-      removePreviewImage();
+      resetForm();
     }
   });
 
@@ -229,20 +229,20 @@ function displayAddModal() {
     modalDeleteWorks.style.display = "none";
     title.value = "";
     category.value = "";
-    removePreviewImage();
+    resetForm();
   });
   arrowBack.addEventListener("click", () => {
     modalAddWorks.style.display = "none";
     modalDeleteWorks.style.display = "flex";
     title.value = "";
     category.value = "";
-    removePreviewImage();
+    resetForm();
   });
   closeAddModal.addEventListener("click", () => {
     modalContainer.style.display = "none";
     title.value = "";
     category.value = "";
-    removePreviewImage();
+    resetForm();
   });
 }
 
@@ -359,13 +359,16 @@ validateButton.addEventListener("click", (e) => {
     loadSavedData();
 
     // Fonction pour réinitialiser l'affichage de la prévisualisation de l'image
-    function removePreviewImage() {
+    function resetForm() {
       inputFile.value = "";
       previewImg.src = "";
       previewImg.style.display = "none";
       labelFile.style.display = "block";
       iconFile.style.display = "block";
       paragraphFile.style.display = "block";
+      title.value = "";
+      category.value = "";
+      resetValidateButton();
     }
            
     // Fonction de soumission d'un travail
@@ -393,7 +396,8 @@ validateButton.addEventListener("click", (e) => {
         displayGalleryModal(); // Met à jour la galerie dans la modale
         displayWorks(); // Met à jour la galerie principale
         form.reset(); // Réinitialise le formulaire
-        removePreviewImage(); // Réinitialise la prévisualisation de l'image
+        resetForm(); // Réinitialise la prévisualisation de l'image
+        resetValidateButton();
       } catch (error) {
         console.error("Erreur:", error);
       }
@@ -401,6 +405,11 @@ validateButton.addEventListener("click", (e) => {
   }
   
   addWorks();
+
+  function resetValidateButton() {
+    validateButton.disabled = true; // Désactive le bouton Valider
+    validateButton.style.backgroundColor = ""; // Réinitialise la couleur du bouton
+  }
 
   // Gère la déconnexion de l'utilisateur
   logout.addEventListener("click", () => {
