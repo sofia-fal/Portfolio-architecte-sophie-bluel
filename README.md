@@ -1,4 +1,4 @@
-# Portfolio architecte Sophie Bluel ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) ![Node](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white)
+# Portfolio architecte Sophie Bluel ![JS](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) ![Node](https://img.shields.io/badge/Node.js-339933?style=flat&logo=node.js&logoColor=white) - OpenClassrooms
 ![Capture d'écran 2024-11-18 160721](https://github.com/user-attachments/assets/0c7e677c-b70a-4bca-b811-184d3dfd01b8)
 Projet : Création d'une page web dynamique pour une architecte d'intérieur
 
